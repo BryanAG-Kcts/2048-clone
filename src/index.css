@@ -1,0 +1,52 @@
+:root {
+  --lt-color-brown-100: #faf8ef;
+  --lt-color-brown-200: #eee4da59;
+  --lt-color-brown-300: #eee4da;
+
+  --dk-color-brown-100: #bbada0;
+  --dk-color-brown-200: #8f7a66;
+  --dk-color-brown-300: #776e65;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family:
+    system-ui,
+    -apple-system;
+}
+
+body {
+  background: var(--lt-color-brown-100);
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  height: 100dvh;
+  width: 100%;
+  padding: 10px;
+  max-width: 500px;
+}
+
+.boxCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+h1,
+p,
+a {
+  color: var(--dk-color-brown-300);
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+.boxRow {
+  display: flex;
+  gap: 1rem;
+}

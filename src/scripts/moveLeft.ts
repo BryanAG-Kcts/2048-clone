@@ -1,0 +1,19 @@
+import { filterZeroesRow } from './filterZeroes'
+
+export const moveLeft = (row : number[]) => {
+  let rowFilter = filterZeroesRow(row)
+
+  for (let i = 0; i < rowFilter.length - 1; i++) {
+    if (rowFilter[i] === rowFilter[i + 1]) {
+      rowFilter[i] = rowFilter[i] * 2
+      rowFilter[i + 1] = 0
+    }
+  }
+
+  rowFilter = filterZeroesRow(rowFilter)
+
+  const diff = row.length - rowFilter.length
+  const zeroes = Array(diff).fill(0)
+  rowFilter = rowFilter.concat(zeroes)
+  return rowFilter
+}
