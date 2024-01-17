@@ -6,6 +6,8 @@
   --dk-color-brown-100: #bbada0;
   --dk-color-brown-200: #8f7a66;
   --dk-color-brown-300: #776e65;
+
+  --tr-color-brown-200 : rgba(238, 228, 218, 0.733);
 }
 
 * {

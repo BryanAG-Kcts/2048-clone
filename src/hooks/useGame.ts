@@ -12,7 +12,7 @@ export const useGame = create<IUseGame>((set, get) => ({
   gameState: true,
   restartGame: () => {
     const grid = startGame()
-    set({ gridBoard: grid, score: 0 })
+    set({ gridBoard: grid, score: 0, gameState: true })
   },
   moveUp: () => {
     const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore } = get()
@@ -130,11 +130,7 @@ export const useGame = create<IUseGame>((set, get) => ({
 
     if (isAllFully) {
       const isOneMoveLeft = cellsAround(gridBoard)
-
-      if (!isOneMoveLeft) {
-        console.log(gridBoard)
-        console.log('gameOver')
-      }
+      if (!isOneMoveLeft) set({ gameState: false })
     }
   },
   setScore: (scoretoPlus) => {
