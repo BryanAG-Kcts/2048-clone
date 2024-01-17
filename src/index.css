@@ -16,15 +16,19 @@
     system-ui,
     -apple-system;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--lt-color-brown-100);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #root {
-  height: 100dvh;
+  height: 100vh;
   width: 100%;
   padding: 10px;
   max-width: 500px;
@@ -49,4 +53,36 @@ h1 {
 .boxRow {
   display: flex;
   gap: 1rem;
+}
+
+.modalStart {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 100%;
+  padding: 10px;
+  color: var(--dk-color-brown-300);
+  background: var(--lt-color-brown-100);
+}
+
+.modalStart h2 {
+  font-size: 3rem;
+}
+
+button {
+  border: none;
+  background: var(--dk-color-brown-200);
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+#como-jugar {
+  max-width: 500px;
+  text-align: center;
+  padding: 40px 10px;
 }

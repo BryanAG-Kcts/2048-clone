@@ -1,0 +1,58 @@
+.tile0 {
+    background: #cdc1b4;
+}
+
+/* 2 */
+.tile2 {
+    background: #eee4da;
+}
+
+/* 4 */
+.tile4 {
+    background: #ede0c8;
+}
+
+/* 8 */
+.tile8 {
+    background: #f2b179;
+}
+
+/* 16 */
+.tile16 {
+    background: #f59563;
+}
+
+/* 32 */
+.tile32 {
+    background: #f67c5f;
+}
+
+/* 64 */
+.tile64 {
+    background: #f65e3b;
+}
+
+/* 128 */
+.tile128 {
+    background: #edcf72;
+}
+
+/* 256 */
+.tile256 {
+    background: #edcc61;
+}
+
+/* 512 */
+.tile512 {
+    background: #edc850;
+}
+
+/* 1024 */
+.tile1024 {
+    background: #edc53f;
+}
+
+/* 2048 y superiores */
+.tile2048 {
+    background: #edc22e;
+}

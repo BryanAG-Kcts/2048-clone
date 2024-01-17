@@ -6,9 +6,10 @@ interface IBox {
 
 export const Box = ({ children } : IBox) => {
   const isContent = children ? 'boxContent' : null
+  const colorBg = 'tile' + children
 
   return (
-    <div className={`box ${isContent}`}>
+    <div className={`box ${isContent} ${colorBg}`}>
       {children === 0 ? null : children}
     </div>
   )

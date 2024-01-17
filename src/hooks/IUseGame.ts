@@ -4,6 +4,7 @@ export interface IUseGame {
     gridBoard : gridBoardType,
     score: number,
     bestScore: number,
+    gameState: boolean,
     restartGame: () => void,
     moveUp: () => void,
     moveDown: () => void,

@@ -16,7 +16,10 @@ export const Dinamical = () => {
     window.addEventListener('keydown', e => {
       const { key } = e
 
-      if (key in moves.current) moves.current[key as movesType]()
+      if (key in moves.current) {
+        e.preventDefault()
+        moves.current[key as movesType]()
+      }
     })
   }, [])
 

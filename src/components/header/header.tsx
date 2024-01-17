@@ -5,7 +5,7 @@ export const Header = () => {
   const { score, bestScore, restartGame } = useGame()
 
   return (
-    <header className='boxCol'>
+    <header id='to2048' className='boxCol'>
       <div className='presentationHeader'>
         <h1>2048</h1>
 
@@ -28,7 +28,7 @@ export const Header = () => {
           Junta cuadros, llega a
           <strong> 2048!</strong>
           <br />
-          <a href='#' className=''>
+          <a href='#como-jugar' className=''>
             Como jugar →
           </a>
         </p>

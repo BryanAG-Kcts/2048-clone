@@ -9,7 +9,7 @@ export const useGame = create<IUseGame>((set, get) => ({
   gridBoard: startGame(),
   score: 0,
   bestScore: 0,
-
+  gameState: true,
   restartGame: () => {
     const grid = startGame()
     set({ gridBoard: grid, score: 0 })
