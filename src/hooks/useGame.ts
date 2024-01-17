@@ -2,6 +2,8 @@ import { randomNumberGenerator, randomPositionGenerator, startGame } from '../sc
 import { create } from 'zustand'
 import { IUseGame } from './IUseGame'
 import { moveLeft } from '../scripts/moveLeft'
+import { cellsEmpty } from '../scripts/cellsEmpty'
+import { cellsAround } from '../scripts/cellsAround'
 
 export const useGame = create<IUseGame>((set, get) => ({
   gridBoard: startGame(),
@@ -13,7 +15,7 @@ export const useGame = create<IUseGame>((set, get) => ({
     set({ gridBoard: grid, score: 0 })
   },
   moveUp: () => {
-    const { gridBoard, generateRandomNumber } = get()
+    const { gridBoard, generateRandomNumber, isGameOver } = get()
     const boardLength = gridBoard.length
     let almostMove = false
 
@@ -34,9 +36,10 @@ export const useGame = create<IUseGame>((set, get) => ({
 
     set({ gridBoard })
     if (almostMove) generateRandomNumber()
+    isGameOver()
   },
   moveDown: () => {
-    const { gridBoard, generateRandomNumber } = get()
+    const { gridBoard, generateRandomNumber, isGameOver } = get()
     const boardLength = gridBoard.length
     let almostMove = false
 
@@ -58,9 +61,10 @@ export const useGame = create<IUseGame>((set, get) => ({
 
     set({ gridBoard })
     if (almostMove) generateRandomNumber()
+    isGameOver()
   },
   moveLeft: () => {
-    const { gridBoard, generateRandomNumber } = get()
+    const { gridBoard, generateRandomNumber, isGameOver } = get()
     let almostMove = false
 
     gridBoard.forEach((row, index) => {
@@ -71,9 +75,10 @@ export const useGame = create<IUseGame>((set, get) => ({
 
     set({ gridBoard })
     if (almostMove) generateRandomNumber()
+    isGameOver()
   },
   moveRight: () => {
-    const { gridBoard, generateRandomNumber } = get()
+    const { gridBoard, generateRandomNumber, isGameOver } = get()
     let almostMove = false
 
     gridBoard.forEach((row, index) => {
@@ -84,6 +89,7 @@ export const useGame = create<IUseGame>((set, get) => ({
 
     set({ gridBoard })
     if (almostMove) generateRandomNumber()
+    isGameOver()
   },
   generateRandomNumber () {
     const { gridBoard } = get()
@@ -101,6 +107,19 @@ export const useGame = create<IUseGame>((set, get) => ({
     }
 
     set({ gridBoard })
+  },
+  isGameOver () {
+    const { gridBoard } = get()
+    const isAllFully = cellsEmpty(gridBoard)
+
+    if (isAllFully) {
+      const isOneMoveLeft = cellsAround(gridBoard)
+
+      if (!isOneMoveLeft) {
+        console.log(gridBoard)
+        console.log('gameOver')
+      }
+    }
   }
 
 }))

@@ -10,4 +10,5 @@ export interface IUseGame {
     moveLeft: () => void,
     moveRight: () => void,
     generateRandomNumber: () => void,
+    isGameOver: () => void,
 }

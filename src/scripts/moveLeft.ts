@@ -18,9 +18,9 @@ export const moveLeft = (row : number[]) : returnMove => {
   rowFilter = filterZeroesRow(rowFilter)
 
   const diff = row.length - rowFilter.length
-  const almostMove = diff !== 0
   const zeroes = Array(diff).fill(0)
   rowFilter = rowFilter.concat(zeroes)
+  const almostMove = rowFilter.join('') !== row.join('')
   return {
     row: rowFilter,
     state: almostMove
