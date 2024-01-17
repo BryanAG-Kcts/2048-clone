@@ -1,6 +1,11 @@
 import { filterZeroesRow } from './filterZeroes'
 
-export const moveLeft = (row : number[]) => {
+interface returnMove {
+  state : boolean
+  row : number[]
+}
+
+export const moveLeft = (row : number[]) : returnMove => {
   let rowFilter = filterZeroesRow(row)
 
   for (let i = 0; i < rowFilter.length - 1; i++) {
@@ -13,7 +18,11 @@ export const moveLeft = (row : number[]) => {
   rowFilter = filterZeroesRow(rowFilter)
 
   const diff = row.length - rowFilter.length
+  const almostMove = diff !== 0
   const zeroes = Array(diff).fill(0)
   rowFilter = rowFilter.concat(zeroes)
-  return rowFilter
+  return {
+    row: rowFilter,
+    state: almostMove
+  }
 }
