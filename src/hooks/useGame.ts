@@ -15,9 +15,10 @@ export const useGame = create<IUseGame>((set, get) => ({
     set({ gridBoard: grid, score: 0 })
   },
   moveUp: () => {
-    const { gridBoard, generateRandomNumber, isGameOver } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore } = get()
     const boardLength = gridBoard.length
     let almostMove = false
+    let newScore = 0
 
     for (let y = 0; y < boardLength; y++) {
       const col = []
@@ -26,7 +27,8 @@ export const useGame = create<IUseGame>((set, get) => ({
         col.push(gridBoard[x][y])
       }
 
-      const { row, state } = moveLeft(col)
+      const { row, state, score } = moveLeft(col)
+      newScore += score
       for (let x = 0; x < boardLength; x++) {
         gridBoard[x][y] = row[x]
       }
@@ -35,13 +37,16 @@ export const useGame = create<IUseGame>((set, get) => ({
     }
 
     set({ gridBoard })
+    setScore(newScore)
+    setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
   },
   moveDown: () => {
-    const { gridBoard, generateRandomNumber, isGameOver } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setBestScore, setScore } = get()
     const boardLength = gridBoard.length
     let almostMove = false
+    let newScore = 0
 
     for (let y = 0; y < boardLength; y++) {
       const col = []
@@ -50,7 +55,8 @@ export const useGame = create<IUseGame>((set, get) => ({
         col.push(gridBoard[x][y])
       }
 
-      const { row, state } = moveLeft(col.reverse())
+      const { row, state, score } = moveLeft(col.reverse())
+      newScore += score
       row.reverse()
       for (let x = 0; x < boardLength; x++) {
         gridBoard[x][y] = row[x]
@@ -60,34 +66,44 @@ export const useGame = create<IUseGame>((set, get) => ({
     }
 
     set({ gridBoard })
+    setScore(newScore)
+    setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
   },
   moveLeft: () => {
-    const { gridBoard, generateRandomNumber, isGameOver } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setBestScore, setScore } = get()
     let almostMove = false
+    let newScore = 0
 
     gridBoard.forEach((row, index) => {
-      const { row: newRow, state } = moveLeft(row)
+      const { row: newRow, state, score } = moveLeft(row)
+      newScore += score
       gridBoard[index] = newRow
       almostMove ||= state
     })
 
     set({ gridBoard })
+    setScore(newScore)
+    setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
   },
   moveRight: () => {
-    const { gridBoard, generateRandomNumber, isGameOver } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore } = get()
     let almostMove = false
+    let newScore = 0
 
     gridBoard.forEach((row, index) => {
-      const { row: newRow, state } = moveLeft(row.reverse())
+      const { row: newRow, state, score } = moveLeft(row.reverse())
+      newScore += score
       gridBoard[index] = newRow.reverse()
       almostMove ||= state
     })
 
     set({ gridBoard })
+    setScore(newScore)
+    setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
   },
@@ -120,6 +136,15 @@ export const useGame = create<IUseGame>((set, get) => ({
         console.log('gameOver')
       }
     }
+  },
+  setScore: (scoretoPlus) => {
+    const { score } = get()
+    const newScore = score + scoretoPlus
+    set({ score: newScore })
+  },
+  setBestScore () {
+    const { score, bestScore } = get()
+    if (score > bestScore) set({ bestScore: score })
   }
 
 }))

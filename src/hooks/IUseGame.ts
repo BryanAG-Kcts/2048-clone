@@ -12,4 +12,6 @@ export interface IUseGame {
     moveRight: () => void,
     generateRandomNumber: () => void,
     isGameOver: () => void,
+    setScore: (scoretoPlus: number) => void,
+    setBestScore: () => void,
 }
