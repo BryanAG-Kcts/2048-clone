@@ -1,11 +1,11 @@
-import { getBestScoreStorage, getScoreStorage, randomNumberGenerator, randomPositionGenerator, startGame } from '../scripts/gameConstants'
+import { getBestScoreStorage, getScoreStorage, getScoreUploadedStorage, randomNumberGenerator, randomPositionGenerator, startGame } from '../scripts/gameConstants'
 import { create } from 'zustand'
 import { IUseGame, user } from './IUseGame'
 import { moveLeft } from '../scripts/moveLeft'
 import { cellsEmpty } from '../scripts/cellsEmpty'
 import { cellsAround } from '../scripts/cellsAround'
 import { fetchDataJson } from '../scripts/fetchDataJson'
-import { userLink } from '../scripts/usersConstants'
+import { minScore, userLink } from '../scripts/usersConstants'
 import { postDataFetch } from '../scripts/postDataFetch'
 
 export const useGame = create<IUseGame>((set, get) => ({
@@ -13,13 +13,15 @@ export const useGame = create<IUseGame>((set, get) => ({
   score: getScoreStorage(),
   bestScore: getBestScoreStorage(),
   gameState: true,
-  scoreUploaded: 0,
+  scoreUploaded: getScoreUploadedStorage(),
   users: [],
   firstStartGame: true,
+  userState: 'none',
   setFirstStartGame () {
     set({ firstStartGame: false })
   },
   restartGame: () => {
+    localStorage.removeItem('gridBoard')
     const grid = startGame()
     set({ gridBoard: grid, score: 0, gameState: true })
   },
@@ -162,7 +164,15 @@ export const useGame = create<IUseGame>((set, get) => ({
   async addUser (userName) {
     const { getUsers, bestScore, scoreUploaded } = get()
 
-    if (scoreUploaded === bestScore) return
+    if (bestScore < minScore) {
+      set({ userState: 'toLow' })
+      return
+    }
+
+    if (scoreUploaded === bestScore) {
+      set({ userState: 'notBetter' })
+      return
+    }
 
     const user : user = {
       score: bestScore,
@@ -174,6 +184,7 @@ export const useGame = create<IUseGame>((set, get) => ({
     if (result.serverStatus === 2) {
       getUsers()
       set({ scoreUploaded: bestScore })
+      set({ userState: 'none' })
     }
   },
   saveToLocalStorage () {

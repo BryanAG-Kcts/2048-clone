@@ -1,3 +1,5 @@
+import { userStateType } from '../scripts/usersConstants'
+
 export type gridBoardType = number[][]
 
 export interface user {
@@ -12,6 +14,7 @@ export interface IUseGame {
     bestScore: number,
     gameState: boolean,
     scoreUploaded : number,
+    userState : userStateType
     firstStartGame: boolean,
     setFirstStartGame: () => void,
 
