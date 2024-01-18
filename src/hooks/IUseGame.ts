@@ -11,7 +11,10 @@ export interface IUseGame {
     score: number,
     bestScore: number,
     gameState: boolean,
-    scoreUploaded : number
+    scoreUploaded : number,
+    firstStartGame: boolean,
+    setFirstStartGame: () => void,
+
     restartGame: () => void,
     moveUp: () => void,
     moveDown: () => void,
@@ -25,4 +28,6 @@ export interface IUseGame {
     users : user[],
     getUsers : () => void,
     addUser : (userName : string) => void,
+
+    saveToLocalStorage : () => void,
 }

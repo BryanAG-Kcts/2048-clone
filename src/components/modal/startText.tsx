@@ -1,8 +1,9 @@
+import { useGame } from '../../hooks/useGame'
+
 export const StartText = () => {
-  const closeModal = () => {
-    const dialog = document.querySelector('#modal')
-    dialog?.remove()
-  }
+  const { setFirstStartGame } = useGame()
+
+  const closeModal = () => setFirstStartGame()
 
   return (
     <article className='boxCol modalStart'>

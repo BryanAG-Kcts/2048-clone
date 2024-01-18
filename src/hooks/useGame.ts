@@ -1,4 +1,4 @@
-import { randomNumberGenerator, randomPositionGenerator, startGame } from '../scripts/gameConstants'
+import { getBestScoreStorage, getScoreStorage, randomNumberGenerator, randomPositionGenerator, startGame } from '../scripts/gameConstants'
 import { create } from 'zustand'
 import { IUseGame, user } from './IUseGame'
 import { moveLeft } from '../scripts/moveLeft'
@@ -10,17 +10,21 @@ import { postDataFetch } from '../scripts/postDataFetch'
 
 export const useGame = create<IUseGame>((set, get) => ({
   gridBoard: startGame(),
-  score: 0,
-  bestScore: 0,
+  score: getScoreStorage(),
+  bestScore: getBestScoreStorage(),
   gameState: true,
   scoreUploaded: 0,
   users: [],
+  firstStartGame: true,
+  setFirstStartGame () {
+    set({ firstStartGame: false })
+  },
   restartGame: () => {
     const grid = startGame()
     set({ gridBoard: grid, score: 0, gameState: true })
   },
   moveUp: () => {
-    const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore, saveToLocalStorage } = get()
     const boardLength = gridBoard.length
     let almostMove = false
     let newScore = 0
@@ -46,9 +50,10 @@ export const useGame = create<IUseGame>((set, get) => ({
     setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
+    saveToLocalStorage()
   },
   moveDown: () => {
-    const { gridBoard, generateRandomNumber, isGameOver, setBestScore, setScore } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setBestScore, setScore, saveToLocalStorage } = get()
     const boardLength = gridBoard.length
     let almostMove = false
     let newScore = 0
@@ -75,9 +80,10 @@ export const useGame = create<IUseGame>((set, get) => ({
     setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
+    saveToLocalStorage()
   },
   moveLeft: () => {
-    const { gridBoard, generateRandomNumber, isGameOver, setBestScore, setScore } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setBestScore, setScore, saveToLocalStorage } = get()
     let almostMove = false
     let newScore = 0
 
@@ -93,9 +99,10 @@ export const useGame = create<IUseGame>((set, get) => ({
     setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
+    saveToLocalStorage()
   },
   moveRight: () => {
-    const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore } = get()
+    const { gridBoard, generateRandomNumber, isGameOver, setScore, setBestScore, saveToLocalStorage } = get()
     let almostMove = false
     let newScore = 0
 
@@ -111,6 +118,7 @@ export const useGame = create<IUseGame>((set, get) => ({
     setBestScore()
     if (almostMove) generateRandomNumber()
     isGameOver()
+    saveToLocalStorage()
   },
   generateRandomNumber () {
     const { gridBoard } = get()
@@ -167,16 +175,14 @@ export const useGame = create<IUseGame>((set, get) => ({
       getUsers()
       set({ scoreUploaded: bestScore })
     }
+  },
+  saveToLocalStorage () {
+    const { bestScore, scoreUploaded, gridBoard, score } = get()
+
+    localStorage.setItem('bestScore', bestScore.toString())
+    localStorage.setItem('scoreUploaded', scoreUploaded.toString())
+    localStorage.setItem('gridBoard', JSON.stringify(gridBoard))
+    localStorage.setItem('score', score.toString())
   }
 
 }))
-
-// {
-//   "fieldCount": 0,
-//   "affectedRows": 1,
-//   "insertId": 2,
-//   "info": "",
-//   "serverStatus": 2,
-//   "warningStatus": 0,
-//   "changedRows": 0
-// }

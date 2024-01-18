@@ -10,6 +10,10 @@ export const randomNumberGenerator = () => Math.random() > 0.2 ? possibleValuesG
 export const randomPositionGenerator = (max : number) => Math.floor(Math.random() * max)
 
 export const startGame = () => {
+  const gridLocalStorage = localStorage.getItem('gridBoard')
+
+  if (gridLocalStorage) return JSON.parse(gridLocalStorage)
+
   const grid = initialStateBoard()
   const max = grid.length
 
@@ -31,4 +35,19 @@ export const startGame = () => {
   grid[secondPositionX][secondPositionY] = secondValue
 
   return grid
+}
+
+export const getScoreStorage = () => {
+  const score = Number(localStorage.getItem('score'))
+  return score
+}
+
+export const getBestScoreStorage = () => {
+  const bestScore = Number(localStorage.getItem('bestScore'))
+  return bestScore
+}
+
+export const getScoreUploadedStorage = () => {
+  const scoreUploaded = Number(localStorage.getItem('scoreUploaded'))
+  return scoreUploaded
 }

@@ -5,14 +5,17 @@ import { Dinamical } from './dinamical/dinamical'
 import { Header } from './header/header'
 import { Modal } from './modal/modal'
 import { StartText } from './modal/startText'
+import { useGame } from '../hooks/useGame'
 
 export const Game2048 = () => {
+  const { firstStartGame } = useGame()
+
   return (
     <>
       <section className='boxCol fullyBox'>
-        <Modal>
-          <StartText />
-        </Modal>
+        {
+          firstStartGame && <Modal><StartText /></Modal>
+        }
         <Dinamical />
         <Header />
         <Board />
