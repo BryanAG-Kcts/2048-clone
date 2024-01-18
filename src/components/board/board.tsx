@@ -42,6 +42,7 @@ export const Board = () => {
 
     gameBoard.current?.addEventListener('touchmove', e => {
       const { touches } = e
+
       const endX = touches[0].clientX
       const endY = touches[0].clientY
 
