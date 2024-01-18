@@ -1,15 +1,20 @@
 import { randomNumberGenerator, randomPositionGenerator, startGame } from '../scripts/gameConstants'
 import { create } from 'zustand'
-import { IUseGame } from './IUseGame'
+import { IUseGame, user } from './IUseGame'
 import { moveLeft } from '../scripts/moveLeft'
 import { cellsEmpty } from '../scripts/cellsEmpty'
 import { cellsAround } from '../scripts/cellsAround'
+import { fetchDataJson } from '../scripts/fetchDataJson'
+import { userLink } from '../scripts/usersConstants'
+import { postDataFetch } from '../scripts/postDataFetch'
 
 export const useGame = create<IUseGame>((set, get) => ({
   gridBoard: startGame(),
   score: 0,
   bestScore: 0,
   gameState: true,
+  scoreUploaded: 0,
+  users: [],
   restartGame: () => {
     const grid = startGame()
     set({ gridBoard: grid, score: 0, gameState: true })
@@ -141,6 +146,37 @@ export const useGame = create<IUseGame>((set, get) => ({
   setBestScore () {
     const { score, bestScore } = get()
     if (score > bestScore) set({ bestScore: score })
+  },
+  async getUsers () {
+    const users = await fetchDataJson(userLink)
+    set({ users })
+  },
+  async addUser (userName) {
+    const { getUsers, bestScore, scoreUploaded } = get()
+
+    if (scoreUploaded === bestScore) return
+
+    const user : user = {
+      score: bestScore,
+      userName
+    }
+
+    const result = await postDataFetch(userLink, user)
+
+    if (result.serverStatus === 2) {
+      getUsers()
+      set({ scoreUploaded: bestScore })
+    }
   }
 
 }))
+
+// {
+//   "fieldCount": 0,
+//   "affectedRows": 1,
+//   "insertId": 2,
+//   "info": "",
+//   "serverStatus": 2,
+//   "warningStatus": 0,
+//   "changedRows": 0
+// }

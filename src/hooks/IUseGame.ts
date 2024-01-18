@@ -1,10 +1,17 @@
 export type gridBoardType = number[][]
 
+export interface user {
+    userName : string,
+    score: number,
+    id?: number
+}
+
 export interface IUseGame {
     gridBoard : gridBoardType,
     score: number,
     bestScore: number,
     gameState: boolean,
+    scoreUploaded : number
     restartGame: () => void,
     moveUp: () => void,
     moveDown: () => void,
@@ -14,4 +21,8 @@ export interface IUseGame {
     isGameOver: () => void,
     setScore: (scoretoPlus: number) => void,
     setBestScore: () => void,
+
+    users : user[],
+    getUsers : () => void,
+    addUser : (userName : string) => void,
 }

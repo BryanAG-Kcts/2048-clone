@@ -1,0 +1,16 @@
+@media (min-width: 400px) {
+    .scoreHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .scoreHeader .scoreTable span {
+        flex: 1 1 100%;
+    }
+
+    .scoreTable span h2 {
+        font-size: 0.7rem;
+    }
+}

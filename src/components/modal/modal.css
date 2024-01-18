@@ -1,6 +1,5 @@
 dialog {
     width: 100%;
-    aspect-ratio: 1;
     max-width: 500px;
     margin: 0 auto;
     transform: translateY(-50%);
@@ -19,4 +18,10 @@ dialog {
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     z-index: 100;
+}
+
+@media (min-width: 300px) {
+    dialog {
+        aspect-ratio: 1;
+    }
 }

@@ -5,7 +5,7 @@ export const Header = () => {
   const { score, bestScore, restartGame } = useGame()
 
   return (
-    <header id='to2048' className='boxCol'>
+    <header className='boxCol'>
       <div className='presentationHeader'>
         <h1>2048</h1>
 

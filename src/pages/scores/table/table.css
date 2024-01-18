@@ -1,0 +1,27 @@
+table {
+    color: var(--dk-color-brown-300);
+    text-align: left;
+}
+
+tr {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+thead {
+    padding: 0 10px;
+}
+
+tbody tr {
+    background: var(--lt-color-brown-300);
+    padding: 10px 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.text-right {
+    text-align: right;
+}
