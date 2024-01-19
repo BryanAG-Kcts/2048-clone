@@ -4,6 +4,7 @@ import './boardGame.css'
 import './colors.css'
 import { GameOver } from '../gameOver/gameOver'
 import { useEffect, useRef } from 'react'
+import db from 'just-debounce'
 
 export const Board = () => {
   const { gridBoard } = useGame()
@@ -17,30 +18,13 @@ export const Board = () => {
   })
 
   const gameBoard = useRef<HTMLDivElement>(null)
-
   type movesType = keyof typeof moves.current
 
   useEffect(() => {
     let startX = 0
     let startY = 0
 
-    window.addEventListener('keydown', e => {
-      const { key } = e
-
-      if (key in moves.current) {
-        e.preventDefault()
-        moves.current[key as movesType]()
-      }
-    })
-
-    gameBoard.current?.addEventListener('touchstart', e => {
-      const { touches } = e
-      e.preventDefault()
-      startX = touches[0].clientX
-      startY = touches[0].clientY
-    }, { passive: false })
-
-    gameBoard.current?.addEventListener('touchmove', e => {
+    const debouncedTouch = db(function (e) {
       const { touches } = e
 
       const endX = touches[0].clientX
@@ -69,7 +53,25 @@ export const Board = () => {
       }
 
       moves.current.ArrowUp()
+    }, 50)
+
+    window.addEventListener('keydown', e => {
+      const { key } = e
+
+      if (key in moves.current) {
+        e.preventDefault()
+        moves.current[key as movesType]()
+      }
+    })
+
+    gameBoard.current?.addEventListener('touchstart', e => {
+      const { touches } = e
+      e.preventDefault()
+      startX = touches[0].clientX
+      startY = touches[0].clientY
     }, { passive: false })
+
+    gameBoard.current?.addEventListener('touchmove', e => debouncedTouch(e), { passive: false })
   }, [])
 
   return (
