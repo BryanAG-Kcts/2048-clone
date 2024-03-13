@@ -1,4 +1,4 @@
-export const userLink = 'https://github.com/BryanAG-Kcts/2048-clone.git/users'
+export const userLink = 'https://2048-clone-back.vercel.app/users'
 export const minScore = 1300
 
 export const userStates = {
