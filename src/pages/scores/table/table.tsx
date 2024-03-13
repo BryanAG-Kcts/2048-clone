@@ -4,8 +4,6 @@ import './table.css'
 export const Table = () => {
   const { users } = useGame()
 
-  // users.push({ id: 'x', userName: 'xd', score: 'a' })
-
   return (
     <table className='boxCol'>
       <thead>
