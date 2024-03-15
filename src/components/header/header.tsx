@@ -10,7 +10,6 @@ export const Header = () => {
         <h1>2048</h1>
 
         <div className='boxRow scoreTable'>
-
           <span>
             <h2>PUNTAJE</h2>
             <p>{score}</p>
@@ -25,17 +24,17 @@ export const Header = () => {
 
       <div className='boxRow gameOptions'>
         <p>
-          Junta cuadros, llega a
-          <strong> 2048!</strong>
+          Junta cuadros, llega a<strong> 2048!</strong>
           <br />
-          <a href='#como-jugar' className=''>
+          <a
+            href='#como-jugar'
+            className=''
+          >
             Como jugar →
           </a>
         </p>
 
-        <button onClick={restartGame}>
-          NUEVO JUEGO
-        </button>
+        <button onClick={restartGame}>NUEVO JUEGO</button>
       </div>
     </header>
   )

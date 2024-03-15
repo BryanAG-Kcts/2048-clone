@@ -186,6 +186,9 @@ export const useGame = create<IUseGame>((set, get) => ({
       set({ scoreUploaded: bestScore })
       set({ userState: 'none' })
     }
+
+    alert('¡Enhorabuena! Se ha guardado tu increíble puntaje')
+    window.location.reload()
   },
   saveToLocalStorage () {
     const { bestScore, scoreUploaded, gridBoard, score } = get()
